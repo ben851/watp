@@ -1,0 +1,35 @@
+aks:
+  fqdn: "{{ requiredEnv "FQDN" }}"
+mts:
+  environment: {{ .Environment.Name }}
+dashboard:
+  enabled: "true"
+  domain: "traefik.wearetheproblem.ca"
+  environmentHost: "traefik.wearetheproblem.ca"
+kubernetes:
+  namespaces:
+  - default
+  - watp
+ssl:
+  enabled: false
+  enforced: false
+  upstream: false
+  insecureSkipVerify: false
+acme:
+  enabled: false
+  challengeType: dns-01
+  delayBeforeCheck: 1
+  email: "benlarabie@gmail.com"
+  onHostRule: true
+  logging: true
+  dnsProvider:
+    name: azure
+    azure:
+  domains:
+    domainList:
+      - main: "*.wearetheproblem.ca"
+memoryRequest: 256Mi
+memoryLimit: 512Mi
+cpuRequest: 500m
+cpuLimit: 750m
+

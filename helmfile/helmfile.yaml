@@ -1,0 +1,42 @@
+repositories:
+  - name: dts
+    url: http://helm.esdc.online
+  - name: bitnami
+    url: https://charts.bitnami.com/bitnami
+context: WATP
+
+#default values to set for args along with dedicated keys that can be set by contributers, cli args take precedence over these
+helmDefaults:
+  tillerNamespace: kube-system
+  # args:
+  #  - "--tls"
+  # - "--debug"
+  # additional and global args passed to helm
+  # args:
+  #   - "--set k=v"
+  # defaults for verify, wait, force, timeout and recreatePods under releases[]
+  verify: false
+  wait: false
+  timeout: 600
+  recreatePods: true
+
+environments:
+    watp:
+
+releases:
+
+
+# Deliverables
+
+  - name: watp
+    chart: bitnami/apache
+    namespace: watp
+    labels:
+        category: watp
+        app: home
+    wait: false
+    recreatePods: true
+    installed: true
+    force: false
+
+

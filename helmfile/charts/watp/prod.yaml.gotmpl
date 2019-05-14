@@ -1,0 +1,8 @@
+ingress:
+  enabled: true
+  hosts:
+{{- if or (eq .Environment.Name "prod-blue") (eq .Environment.Name "prod-green") }}
+    - home.esdc.online
+{{ end }}
+    - home-{{ .Environment.Name }}.esdc.online
+
