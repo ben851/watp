@@ -1,8 +1,7 @@
 ingress:
   enabled: true
-  hosts:
-{{- if or (eq .Environment.Name "prod-blue") (eq .Environment.Name "prod-green") }}
-    - home.esdc.online
-{{ end }}
-    - home-{{ .Environment.Name }}.esdc.online
+  hostname: home.wearetheproblem.ca
 
+  annotations: {}
+    # kubernetes.io/ingress.class: traefik
+    # kubernetes.io/tls-acme: "true"

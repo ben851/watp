@@ -1,5 +1,7 @@
+rbac:
+  enabled: true
 aks:
-  fqdn: "{{ requiredEnv "FQDN" }}"
+  fqdn: benk8s-dns-ced14394
 mts:
   environment: {{ .Environment.Name }}
 dashboard:

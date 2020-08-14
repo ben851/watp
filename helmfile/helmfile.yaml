@@ -1,24 +1,14 @@
 repositories:
-  - name: dts
-    url: http://helm.esdc.online
   - name: bitnami
     url: https://charts.bitnami.com/bitnami
-context: WATP
+  - name: dts
+    url: https://helm.dts-stn.com    
+#context: WATP
 
 #default values to set for args along with dedicated keys that can be set by contributers, cli args take precedence over these
 helmDefaults:
-  tillerNamespace: kube-system
-  # args:
-  #  - "--tls"
-  # - "--debug"
-  # additional and global args passed to helm
-  # args:
-  #   - "--set k=v"
-  # defaults for verify, wait, force, timeout and recreatePods under releases[]
   verify: false
   wait: false
-  timeout: 600
-  recreatePods: true
 
 environments:
     watp:
@@ -28,14 +18,30 @@ releases:
 
 # Deliverables
 
+
+  - name: traefik-watp
+    chart: stable/traefik
+    namespace: ingress-{{ .Environment.Name }}
+    version: 1.87.2
+    values:
+      - charts/traefik/prod.yaml.gotmpl
+    labels:
+        category: ingress
+        app: traefik
+    wait: false
+    installed: true
+    force: false
+
   - name: watp
-    chart: bitnami/apache
+    chart: dtsweb/dts-web
+    version: 0.0.3
     namespace: watp
+    values:
+      - charts/watp/prod.yaml.gotmpl    
     labels:
         category: watp
         app: home
     wait: false
-    recreatePods: true
     installed: true
     force: false
 
